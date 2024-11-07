@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+        }
+
+        .form-group {
+            margin: 15px 0;
+            position: relative;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        input:focus, textarea:focus {
+            transform: scale(1.05);
+            background-color: #444;
+        }
+
+        label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 14px;
+            color: #aaa;
+            transition: 0.2s;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            background-color: #0f0;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .error {
+            color: #f00;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Order Form</h2>
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="name">First Name</label>
+                <input type="text" id="name" placeholder="Enter your first name" required>
+                <p class="error" id="nameError"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Enter your last name" required>
+                <p class="error" id="lastNameError"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="Where do you stay?" required>
+                <p class="error" id="locationError"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="items">Items Purchased</label>
+                <textarea id="items" placeholder="List the items purchased"></textarea>
+                <p class="error" id="itemsError"></p>
+            </div>
+
+            <button type="submit">Submit Order</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            Thank you for your order! We'll process it shortly.
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for validation and dynamic effects
+        const form = document.getElementById("orderForm");
+        const successMessage = document.getElementById("successMessage");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            // Input fields
+            const name = document.getElementById("name");
+            const lastName = document.getElementById("lastName");
+            const location = document.getElementById("location");
+            const items = document.getElementById("items");
+
+            // Error messages
+            const nameError = document.getElementById("nameError");
+            const lastNameError = document.getElementById("lastNameError");
+            const locationError = document.getElementById("locationError");
+            const itemsError = document.getElementById("itemsError");
+
+            // Reset errors
+            nameError.textContent = "";
+            lastNameError.textContent = "";
+            locationError.textContent = "";
+            itemsError.textContent = "";
+
+            // Validation
+            if (name.value.trim() === "") {
+                nameError.textContent = "First name is required.";
+                isValid = false;
+            }
+
+            if (lastName.value.trim() === "") {
+                lastNameError.textContent = "Last name is required.";
+                isValid = false;
+            }
+
+            if (location.value.trim() === "") {
+                locationError.textContent = "Location is required.";
+                isValid = false;
+            }
+
+            if (items.value.trim() === "") {
+                itemsError.textContent = "Please list the items purchased.";
+                isValid = false;
+            }
+
+            // Show success message if valid
+            if (isValid) {
+                successMessage.style.display = "block";
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
